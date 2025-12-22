@@ -1,0 +1,11 @@
+# CyberKit Python Dependencies
+# Core dependencies (Python standard library is sufficient for basic functionality)
+
+# Optional dependencies for extended features
+# Uncomment if needed:
+
+# requests>=2.28.0          # HTTP requests
+# python-nmap>=0.7.1        # Nmap Python bindings
+# beautifulsoup4>=4.11.0    # HTML parsing
+# colorama>=0.4.6           # Cross-platform colors (Windows support)
+# rich>=13.0.0              # Rich terminal output
