@@ -10,7 +10,9 @@ class Colors:
     MAGENTA = '\033[95m'
     CYAN = '\033[96m'
     WHITE = '\033[97m'
+    GRAY = '\033[90m'
     BOLD = '\033[1m'
+    DIM = '\033[2m'
     UNDERLINE = '\033[4m'
     END = '\033[0m'
 
