@@ -13,6 +13,10 @@ from utils.helpers import *
 class ReportGenerator:
     def __init__(self):
         self.output_dir = create_output_dir("output/reports")
+    
+    def _sanitize_filename(self, name):
+        """Sanitize filename"""
+        return "".join(c if c.isalnum() or c in ('-', '_') else '_' for c in name)
         
     def show_menu(self):
         while True:
@@ -58,7 +62,8 @@ class ReportGenerator:
         scope = get_input("Kapsam (IP/Domain listesi)")
         
         timestamp = get_timestamp()
-        report_file = f"{self.output_dir}/report_{project_name}_{timestamp}.txt"
+        safe_name = self._sanitize_filename(project_name)
+        report_file = f"{self.output_dir}/report_{safe_name}_{timestamp}.txt"
         
         report_content = f"""
 ================================================================================
@@ -115,8 +120,10 @@ Ekran Görüntüleri: [Yol ekleyin]
         with open(report_file, 'w', encoding='utf-8') as f:
             f.write(report_content)
         
-        print_success(f"Rapor şablonu oluşturuldu: {report_file}")
-        input("\nDevam etmek için Enter'a basın...")
+        print_success(f"Report created: {report_file}")
+        if os.path.exists(report_file):
+            print_info(f"File size: {os.path.getsize(report_file)} bytes")
+        input("\nPress Enter to continue...")
 
     def merge_results(self):
         clear_screen()

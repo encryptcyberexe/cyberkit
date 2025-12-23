@@ -6,33 +6,33 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge">
 </p>
 
-**CyberKit**, Kali Linux için geliştirilmiş, siber güvenlik işlemlerini hızlandıran modüler bir araç setidir. Penetrasyon testi, güvenlik değerlendirmesi ve CTF yarışmaları için idealdir.
+**CyberKit** is a modular cybersecurity toolkit designed for Kali Linux that speeds up common security operations. Perfect for penetration testing, security assessments, and CTF competitions.
 
 ---
 
-## ✨ Özellikler
+## ✨ Features
 
 ### 🌐 Network Scanner
-- Hızlı/Tam port taraması
-- Servis ve versiyon tespiti
+- Quick/Full port scanning
+- Service and version detection
 - OS Detection
-- Vulnerability scanning (NSE)
-- Stealth/SYN tarama
-- UDP tarama
+- Vulnerability scanning (NSE scripts)
+- Stealth/SYN scanning
+- UDP scanning
 - ARP/Ping sweep
 
 ### 🕸️ Web Scanner
 - Directory/File bruteforce (Gobuster, Ffuf)
 - Nikto web vulnerability scanner
 - SQL Injection (SQLMap)
-- XSS tarama
+- XSS scanning
 - Subdomain enumeration
-- SSL/TLS analizi
+- SSL/TLS analysis
 - WordPress scanning (WPScan)
-- HTTP header analizi
+- HTTP header analysis
 
 ### 🔍 OSINT / Information Gathering
-- WHOIS sorgulama
+- WHOIS lookup
 - DNS enumeration
 - Email harvesting (theHarvester)
 - Google Dork generator
@@ -44,14 +44,14 @@
 ### 🔑 Password Tools
 - Hash identifier
 - Hash generator (MD5, SHA1, SHA256, etc.)
-- John The Ripper entegrasyonu
-- Hashcat entegrasyonu
+- John The Ripper integration
+- Hashcat integration
 - Hydra brute force
 - Wordlist generator (Crunch, CeWL)
 - Password strength checker
 
 ### 💀 Exploitation
-- Metasploit Framework entegrasyonu
+- Metasploit Framework integration
 - SearchSploit (Exploit-DB)
 - Reverse shell generator
 - Payload generator (msfvenom)
@@ -60,157 +60,163 @@
 - Privilege escalation checkers
 
 ### 📄 Report Generator
-- Metin rapor şablonları
-- HTML rapor oluşturma
-- Markdown rapor oluşturma
-- Tarama sonuçlarını birleştirme
+- TXT report templates
+- HTML report generation
+- Markdown report generation
+- Merge scan results
 
 ---
 
-## 🚀 Kurulum
+## 🚀 Installation
 
-### Gereksinimler
-- Kali Linux (önerilir) veya Debian tabanlı Linux
+### Requirements
+- Kali Linux (recommended) or Debian-based Linux
 - Python 3.8+
-- Root yetkisi (bazı özellikler için)
+- Root privileges (for some features)
 
-### Adımlar
+### Steps
 
 ```bash
-# Repository'yi klonlayın veya dosyaları kopyalayın
-cd /opt
-git clone <repository-url> cyberkit
+# Clone the repository
+git clone https://github.com/encryptcyberexe/cyberkit.git
 cd cyberkit
 
-# Çalıştırma iznini verin
+# Make executable
 chmod +x cyberkit.py
 
-# Çalıştırın
+# Run
 sudo python3 cyberkit.py
 ```
 
-### Symbolic Link Oluşturma (Opsiyonel)
+### Create Symbolic Link (Optional)
 
 ```bash
-sudo ln -s /opt/cyberkit/cyberkit.py /usr/local/bin/cyberkit
+sudo ln -s $(pwd)/cyberkit.py /usr/local/bin/cyberkit
 ```
 
-Artık terminalde sadece `cyberkit` yazarak çalıştırabilirsiniz.
+Now you can run `cyberkit` from anywhere.
 
 ---
 
-## 📖 Kullanım
+## 📖 Usage
 
-### İnteraktif Mod
+### Interactive Mode
 ```bash
 sudo python3 cyberkit.py
 ```
 
-### Komut Satırı Seçenekleri
+### Command Line Options
 ```bash
-python3 cyberkit.py -h        # Yardım
-python3 cyberkit.py -v        # Versiyon
-python3 cyberkit.py -c        # Araç durumu kontrolü
+python3 cyberkit.py -h        # Help
+python3 cyberkit.py -v        # Version
+python3 cyberkit.py -c        # Check tool status
 ```
 
-### Menü Yapısı
+### Menu Structure
 
 ```
-[1] Network Scanner      - Nmap tabanlı ağ taramaları
-[2] Web Scanner          - Web uygulama güvenlik testleri
-[3] OSINT / Recon        - Bilgi toplama araçları
-[4] Password Tools       - Şifre ve hash araçları
-[5] Exploitation         - Exploit ve payload araçları
-[6] Report Generator     - Rapor oluşturma
-[7] Hızlı Tarama         - Tek komutla temel taramalar
-[8] Cheatsheet           - Faydalı komutlar
-[9] Araç Durumu          - Yüklü araçları kontrol et
-[0] Çıkış
+[1]  Network Scanner      - Nmap-based network scanning
+[2]  Web Scanner          - Web application security testing
+[3]  OSINT / Recon        - Information gathering tools
+[4]  Password Tools       - Hash and password utilities
+[5]  Exploitation         - Exploit and payload tools
+[6]  Report Generator     - Generate security reports
+[7]  Quick Scan           - Fast basic reconnaissance
+[8]  Cheatsheet           - Useful commands reference
+[9]  Tool Status          - Check installed tools
+[10] Popular Tools        - Most used security tools
+[0]  Exit
 ```
 
 ---
 
-## 🔧 Gerekli Araçlar
+## 🔥 Most Used Tools
 
-CyberKit, Kali Linux'ta varsayılan olarak bulunan araçları kullanır:
+| Category | Tool | Description |
+|----------|------|-------------|
+| **Scanning** | nmap | Port scanning, service detection |
+| **Scanning** | masscan | Fast port scanner |
+| **Web** | burpsuite | Web proxy & scanner |
+| **Web** | gobuster | Directory bruteforce |
+| **Web** | ffuf | Fast web fuzzer |
+| **Web** | sqlmap | SQL injection |
+| **Web** | nikto | Web vulnerability scanner |
+| **Password** | john | Hash cracker |
+| **Password** | hashcat | GPU hash cracker |
+| **Password** | hydra | Online bruteforce |
+| **Exploit** | metasploit | Exploitation framework |
+| **OSINT** | theHarvester | Email/subdomain harvesting |
 
-| Araç | Kurulum | Kullanım Alanı |
-|------|---------|----------------|
-| nmap | `apt install nmap` | Network scanning |
-| gobuster | `apt install gobuster` | Directory bruteforce |
-| nikto | `apt install nikto` | Web vulnerability |
-| sqlmap | `apt install sqlmap` | SQL injection |
-| hydra | `apt install hydra` | Brute force |
-| john | `apt install john` | Password cracking |
-| hashcat | `apt install hashcat` | Password cracking |
-| metasploit | `apt install metasploit-framework` | Exploitation |
-| whatweb | `apt install whatweb` | Web fingerprinting |
-| theharvester | `apt install theharvester` | Email harvesting |
-| sherlock | `apt install sherlock` | Username OSINT |
+---
 
-Tüm araçları yüklemek için:
+## 🔧 Required Tools
+
+CyberKit uses tools commonly found in Kali Linux:
+
 ```bash
+# Install all recommended tools
 sudo apt update
 sudo apt install nmap gobuster nikto sqlmap hydra john hashcat \
     metasploit-framework whatweb theharvester sherlock ffuf \
-    sslscan dnsrecon sublist3r wpscan
+    sslscan dnsrecon wpscan netcat-openbsd
 ```
 
 ---
 
-## 📂 Çıktı Dizini Yapısı
+## 📂 Output Directory Structure
 
 ```
 output/
-├── network/      # Nmap tarama sonuçları
-├── web/          # Web tarama sonuçları
-├── osint/        # OSINT sonuçları
-├── passwords/    # Hash/password sonuçları
-├── exploits/     # Payload ve exploit dosyaları
-└── reports/      # Oluşturulan raporlar
+├── network/      # Nmap scan results
+├── web/          # Web scan results
+├── osint/        # OSINT results
+├── passwords/    # Hash/password results
+├── exploits/     # Payloads and exploits
+├── quick_scan/   # Quick scan results
+└── reports/      # Generated reports
 ```
 
 ---
 
-## ⚠️ Yasal Uyarı
+## ⚠️ Legal Disclaimer
 
-Bu araç **sadece yasal ve etik** amaçlar için kullanılmalıdır:
+This tool is intended for **legal and ethical use only**:
 
-- ✅ Kendi sistemlerinizde güvenlik testi
-- ✅ Yazılı izin alınmış penetrasyon testleri
-- ✅ CTF yarışmaları ve lab ortamları
-- ✅ Eğitim amaçlı kullanım
+- ✅ Security testing on your own systems
+- ✅ Authorized penetration testing
+- ✅ CTF competitions and lab environments
+- ✅ Educational purposes
 
-- ❌ İzinsiz sistemlere saldırı
-- ❌ Yasadışı aktiviteler
-- ❌ Zararlı amaçlı kullanım
+- ❌ Unauthorized access to systems
+- ❌ Illegal activities
+- ❌ Malicious purposes
 
-**Sorumlu kullanım sizin sorumluluğunuzdadır.**
-
----
-
-## 🤝 Katkıda Bulunma
-
-1. Fork edin
-2. Feature branch oluşturun (`git checkout -b feature/YeniOzellik`)
-3. Commit edin (`git commit -m 'Yeni özellik eklendi'`)
-4. Push edin (`git push origin feature/YeniOzellik`)
-5. Pull Request açın
+**You are responsible for your actions.**
 
 ---
 
-## 📜 Lisans
+## 🤝 Contributing
 
-MIT License - Detaylar için `LICENSE` dosyasına bakın.
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/NewFeature`)
+3. Commit changes (`git commit -m 'Add new feature'`)
+4. Push to branch (`git push origin feature/NewFeature`)
+5. Open a Pull Request
 
 ---
 
-## 📞 İletişim
+## 📜 License
 
-Sorular ve öneriler için issue açabilirsiniz.
+MIT License - See `LICENSE` file for details.
+
+---
+
+## 📞 Contact
+
+Open an issue for questions and suggestions.
 
 ---
 
 <p align="center">
-  <b>🛡️ Güvenli Hackleyin! 🛡️</b>
+  <b>🛡️ Hack Responsibly! 🛡️</b>
 </p>
