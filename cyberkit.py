@@ -17,8 +17,15 @@ from cyberkit.modules.osint import OSINTModule
 from cyberkit.modules.password_tools import PasswordTools
 from cyberkit.modules.exploitation import ExploitationModule
 from cyberkit.modules.report_generator import ReportGenerator
+from cyberkit.modules.custom_runner import CustomRunner
+from cyberkit.modules.auto_recon import AutoRecon
+from cyberkit.modules.wireless_tools import WirelessTools
+from cyberkit.modules.ad_tools import ADTools
+from cyberkit.modules.encoding_tools import EncodingTools
+from cyberkit.modules.cloud_tools import CloudTools
+from cyberkit.modules.utility_tools import UtilityTools
 
-VERSION = "1.1.0"
+VERSION = "2.0.0"
 
 BANNER = f"""
 {Colors.CYAN}
@@ -225,6 +232,13 @@ def main_menu():
     password_tools = PasswordTools()
     exploitation = ExploitationModule()
     report_generator = ReportGenerator()
+    custom_runner = CustomRunner()
+    auto_recon = AutoRecon()
+    wireless_tools = WirelessTools()
+    ad_tools = ADTools()
+    encoding_tools = EncodingTools()
+    cloud_tools = CloudTools()
+    utility_tools = UtilityTools()
     
     while True:
         clear_screen()
@@ -232,20 +246,21 @@ def main_menu():
         
         print(f"""
 {Colors.CYAN}╔══════════════════════════════════════════════════════════════╗
-║                         MAIN MENU                            ║
+║                      MAIN MENU v2.0                          ║
 ╠══════════════════════════════════════════════════════════════╣{Colors.END}
-║                                                              ║
-║   {Colors.CYAN}[1]{Colors.END}  Network Scanner        {Colors.CYAN}[2]{Colors.END}  Web Scanner             ║
-║   {Colors.CYAN}[3]{Colors.END}  OSINT / Recon          {Colors.CYAN}[4]{Colors.END}  Password Tools          ║
-║   {Colors.CYAN}[5]{Colors.END}  Exploitation           {Colors.CYAN}[6]{Colors.END}  Report Generator        ║
-║                                                              ║
+║  {Colors.CYAN}[1]{Colors.END}  Network Scanner       {Colors.CYAN}[2]{Colors.END}  Web Scanner              ║
+║  {Colors.CYAN}[3]{Colors.END}  OSINT / Recon         {Colors.CYAN}[4]{Colors.END}  Password Tools           ║
+║  {Colors.CYAN}[5]{Colors.END}  Exploitation          {Colors.CYAN}[6]{Colors.END}  Report Generator         ║
 {Colors.CYAN}╠══════════════════════════════════════════════════════════════╣{Colors.END}
-║                                                              ║
-║   {Colors.YELLOW}[7]{Colors.END}  Quick Scan             {Colors.YELLOW}[8]{Colors.END}  Cheatsheet             ║
-║   {Colors.YELLOW}[9]{Colors.END}  Tool Status            {Colors.YELLOW}[10]{Colors.END} Popular Tools          ║
-║                                                              ║
+║  {Colors.GREEN}[7]{Colors.END}  Custom Multi-Tool     {Colors.GREEN}[8]{Colors.END}  Auto Recon Pipeline      ║
+║  {Colors.GREEN}[9]{Colors.END}  Wireless Tools        {Colors.GREEN}[10]{Colors.END} AD/Domain Tools          ║
+║  {Colors.GREEN}[11]{Colors.END} Encoding/Decoding     {Colors.GREEN}[12]{Colors.END} Cloud Security           ║
+║  {Colors.GREEN}[13]{Colors.END} Utility Tools                                        ║
 {Colors.CYAN}╠══════════════════════════════════════════════════════════════╣{Colors.END}
-║   {Colors.RED}[0]{Colors.END}  Exit                                                   ║
+║  {Colors.YELLOW}[14]{Colors.END} Quick Scan            {Colors.YELLOW}[15]{Colors.END} Cheatsheet               ║
+║  {Colors.YELLOW}[16]{Colors.END} Tool Status           {Colors.YELLOW}[17]{Colors.END} Popular Tools            ║
+{Colors.CYAN}╠══════════════════════════════════════════════════════════════╣{Colors.END}
+║  {Colors.RED}[0]{Colors.END}  Exit                                                   ║
 {Colors.CYAN}╚══════════════════════════════════════════════════════════════╝{Colors.END}
         """)
         
@@ -267,12 +282,26 @@ def main_menu():
         elif choice == "6":
             report_generator.show_menu()
         elif choice == "7":
-            quick_scan_menu()
+            custom_runner.show_menu()
         elif choice == "8":
-            show_cheatsheet()
+            auto_recon.show_menu()
         elif choice == "9":
-            check_dependencies()
+            wireless_tools.show_menu()
         elif choice == "10":
+            ad_tools.show_menu()
+        elif choice == "11":
+            encoding_tools.show_menu()
+        elif choice == "12":
+            cloud_tools.show_menu()
+        elif choice == "13":
+            utility_tools.show_menu()
+        elif choice == "14":
+            quick_scan_menu()
+        elif choice == "15":
+            show_cheatsheet()
+        elif choice == "16":
+            check_dependencies()
+        elif choice == "17":
             show_popular_tools()
         else:
             print_error("Invalid selection!")
