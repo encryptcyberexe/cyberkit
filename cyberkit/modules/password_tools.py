@@ -34,10 +34,10 @@ class PasswordTools:
 {Colors.CYAN}[8]{Colors.END} CeWL - Custom Wordlist
 {Colors.CYAN}[9]{Colors.END} Hash Lookup (Online)
 {Colors.CYAN}[10]{Colors.END} Password Strength Check
-{Colors.CYAN}[0]{Colors.END} Ana Menüye Dön
+{Colors.CYAN}[0]{Colors.END} Back to Main Menu
             """)
             
-            choice = get_input("Seçiminiz")
+            choice = get_input("Your choice")
             
             if choice == "0":
                 break
@@ -62,8 +62,8 @@ class PasswordTools:
             elif choice == "10":
                 self.password_strength()
             else:
-                print_error("Geçersiz seçim!")
-                input("\nDevam etmek için Enter'a basın...")
+                print_error("Invalid selection!")
+                input("\nPress Enter to continue...")
 
     def hash_identifier(self):
         """Identify hash type"""
@@ -118,7 +118,7 @@ class PasswordTools:
                     cmd = f"echo '{hash_value}' | hash-identifier"
                     run_command_live(cmd)
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def hash_generator(self):
         """Generate various hash types"""
@@ -142,7 +142,7 @@ class PasswordTools:
             for name, value in hashes.items():
                 print(f"{Colors.CYAN}{name}:{Colors.END} {value}")
             
-            if confirm("\nSonuçlar dosyaya kaydedilsin mi?"):
+            if confirm("\nResults dosyaya kaydedilsin mi?"):
                 timestamp = get_timestamp()
                 output_file = f"{self.output_dir}/hashes_{timestamp}.txt"
                 with open(output_file, 'w') as f:
@@ -151,7 +151,7 @@ class PasswordTools:
                         f.write(f"{name}: {value}\n")
                 print_success(f"Kaydedildi: {output_file}")
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def john_ripper(self):
         """John The Ripper password cracking"""
@@ -159,8 +159,8 @@ class PasswordTools:
         print_banner("=== JOHN THE RIPPER ===\n")
         
         if not check_tool("john"):
-            print_error("John The Ripper yüklü değil!")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("John The Ripper is not installed!")
+            input("\nPress Enter to continue...")
             return
         
         print(f"""
@@ -189,15 +189,15 @@ class PasswordTools:
         elif mode == "4":
             cmd = f"john --show {hash_file}"
         elif mode == "5":
-            fmt = get_input("Format (örn: raw-md5, ntlm, sha512crypt)")
+            fmt = get_input("Format (e.g.: raw-md5, ntlm, sha512crypt)")
             wordlist = get_input("Wordlist", "/usr/share/wordlists/rockyou.txt")
             cmd = f"john --format={fmt} --wordlist={wordlist} {hash_file}"
         else:
             return
         
-        print_info(f"Çalıştırılan komut: {cmd}")
+        print_info(f"Running command: {cmd}")
         run_command_live(cmd)
-        input("\nDevam etmek için Enter'a basın...")
+        input("\nPress Enter to continue...")
 
     def hashcat_crack(self):
         """Hashcat password cracking"""
@@ -205,8 +205,8 @@ class PasswordTools:
         print_banner("=== HASHCAT ===\n")
         
         if not check_tool("hashcat"):
-            print_error("Hashcat yüklü değil!")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("Hashcat is not installed!")
+            input("\nPress Enter to continue...")
             return
         
         print_info("Yaygın hash modları:")
@@ -230,9 +230,9 @@ class PasswordTools:
             output_file = f"{self.output_dir}/hashcat_{timestamp}.txt"
             
             cmd = f"hashcat -m {hash_mode} -a 0 {hash_file} {wordlist} -o {output_file}"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def hydra_attack(self):
         """Hydra brute force attack"""
@@ -240,8 +240,8 @@ class PasswordTools:
         print_banner("=== HYDRA BRUTE FORCE ===\n")
         
         if not check_tool("hydra"):
-            print_error("Hydra yüklü değil!")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("Hydra is not installed!")
+            input("\nPress Enter to continue...")
             return
         
         print(f"""
@@ -258,7 +258,7 @@ class PasswordTools:
         """)
         
         proto_choice = get_input("Seçim", "1")
-        target = get_input("Hedef IP/Domain")
+        target = get_input("Target IP/Domain")
         
         protocols = {
             "1": "ssh", "2": "ftp", "3": "http-post-form",
@@ -286,19 +286,19 @@ class PasswordTools:
         threads = get_input("Thread sayısı", "16")
         
         if proto_choice == "3":
-            path = get_input("Login path (örn: /login.php)")
-            form_data = get_input("Form data (örn: user=^USER^&pass=^PASS^)")
-            fail_msg = get_input("Başarısız mesajı (örn: 'Login failed')")
+            path = get_input("Login path (e.g.: /login.php)")
+            form_data = get_input("Form data (e.g.: user=^USER^&pass=^PASS^)")
+            fail_msg = get_input("Başarısız mesajı (e.g.: 'Login failed')")
             cmd = f"hydra {user_param} {pass_param} {target} {protocol} \"{path}:{form_data}:{fail_msg}\" -t {threads}"
         else:
-            port = get_input("Port (boş=varsayılan)", "")
+            port = get_input("Port (empty=varsayılan)", "")
             port_param = f"-s {port}" if port else ""
             cmd = f"hydra {user_param} {pass_param} {target} {protocol} {port_param} -t {threads}"
         
-        print_info(f"Çalıştırılan komut: {cmd}")
-        print_warning("Bu işlem uzun sürebilir...")
+        print_info(f"Running command: {cmd}")
+        print_warning("This may take a long time...")
         run_command_live(cmd)
-        input("\nDevam etmek için Enter'a basın...")
+        input("\nPress Enter to continue...")
 
     def medusa_attack(self):
         """Medusa brute force"""
@@ -306,20 +306,20 @@ class PasswordTools:
         print_banner("=== MEDUSA BRUTE FORCE ===\n")
         
         if not check_tool("medusa"):
-            print_error("Medusa yüklü değil!")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("Medusa is not installed!")
+            input("\nPress Enter to continue...")
             return
         
-        target = get_input("Hedef IP")
+        target = get_input("Target IP")
         user = get_input("Kullanıcı adı")
         wordlist = get_input("Password wordlist", "/usr/share/wordlists/rockyou.txt")
         module = get_input("Modül (ssh, ftp, http, smb, mysql)", "ssh")
         
         if target and user:
             cmd = f"medusa -h {target} -u {user} -P {wordlist} -M {module}"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def crunch_wordlist(self):
         """Generate wordlist with Crunch"""
@@ -327,13 +327,13 @@ class PasswordTools:
         print_banner("=== CRUNCH WORDLIST GENERATOR ===\n")
         
         if not check_tool("crunch"):
-            print_error("Crunch yüklü değil!")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("Crunch is not installed!")
+            input("\nPress Enter to continue...")
             return
         
         min_len = get_input("Minimum uzunluk", "6")
         max_len = get_input("Maximum uzunluk", "8")
-        charset = get_input("Karakter seti (boş=varsayılan)", "")
+        charset = get_input("Karakter seti (empty=varsayılan)", "")
         pattern = get_input("Pattern (@ küçük, , büyük, % rakam, ^ sembol)", "")
         
         timestamp = get_timestamp()
@@ -346,14 +346,14 @@ class PasswordTools:
             cmd += f" -t {pattern}"
         cmd += f" -o {output_file}"
         
-        print_info(f"Çalıştırılan komut: {cmd}")
+        print_info(f"Running command: {cmd}")
         print_warning("Bu işlem büyük dosyalar oluşturabilir!")
         
         if confirm("Devam edilsin mi?"):
             run_command_live(cmd)
             print_success(f"Wordlist oluşturuldu: {output_file}")
         
-        input("\nDevam etmek için Enter'a basın...")
+        input("\nPress Enter to continue...")
 
     def cewl_wordlist(self):
         """Generate wordlist from website with CeWL"""
@@ -361,11 +361,11 @@ class PasswordTools:
         print_banner("=== CeWL CUSTOM WORDLIST ===\n")
         
         if not check_tool("cewl"):
-            print_error("CeWL yüklü değil!")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("CeWL is not installed!")
+            input("\nPress Enter to continue...")
             return
         
-        url = get_input("Hedef URL")
+        url = get_input("Target URL")
         depth = get_input("Spider derinliği", "2")
         min_word = get_input("Minimum kelime uzunluğu", "5")
         
@@ -374,10 +374,10 @@ class PasswordTools:
             output_file = f"{self.output_dir}/cewl_{timestamp}.txt"
             
             cmd = f"cewl {url} -d {depth} -m {min_word} -w {output_file}"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
             print_success(f"Wordlist oluşturuldu: {output_file}")
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def hash_lookup(self):
         """Online hash lookup"""
@@ -399,7 +399,7 @@ class PasswordTools:
             for site in sites:
                 print(f"  - {site}")
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def password_strength(self):
         """Check password strength"""
@@ -465,4 +465,4 @@ class PasswordTools:
                 for f in feedback:
                     print(f"  - {f}")
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")

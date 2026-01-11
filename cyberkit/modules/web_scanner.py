@@ -28,17 +28,17 @@ class WebScanner:
 {Colors.CYAN}[3]{Colors.END} Nikto Web Scanner
 {Colors.CYAN}[4]{Colors.END} WhatWeb - Web Fingerprint
 {Colors.CYAN}[5]{Colors.END} SQLMap - SQL Injection
-{Colors.CYAN}[6]{Colors.END} XSS Tarama (XSSer)
+{Colors.CYAN}[6]{Colors.END} XSS Scan (XSSer)
 {Colors.CYAN}[7]{Colors.END} Subdomain Enumeration
 {Colors.CYAN}[8]{Colors.END} SSL/TLS Analizi
 {Colors.CYAN}[9]{Colors.END} CMS Detection (CMSMap)
 {Colors.CYAN}[10]{Colors.END} WordPress Scan (WPScan)
 {Colors.CYAN}[11]{Colors.END} HTTP Header Analizi
 {Colors.CYAN}[12]{Colors.END} Virtual Host Discovery
-{Colors.CYAN}[0]{Colors.END} Ana Menüye Dön
+{Colors.CYAN}[0]{Colors.END} Back to Main Menu
             """)
             
-            choice = get_input("Seçiminiz")
+            choice = get_input("Your choice")
             
             if choice == "0":
                 break
@@ -67,21 +67,21 @@ class WebScanner:
             elif choice == "12":
                 self.vhost_discovery()
             else:
-                print_error("Geçersiz seçim!")
-                input("\nDevam etmek için Enter'a basın...")
+                print_error("Invalid selection!")
+                input("\nPress Enter to continue...")
 
     def gobuster_scan(self):
         """Directory bruteforce with Gobuster"""
         clear_screen()
         print_banner("=== GOBUSTER DIRECTORY SCAN ===\n")
         if not check_tool("gobuster"):
-            print_error("Gobuster yüklü değil! 'apt install gobuster' ile yükleyin.")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("Gobuster is not installed! 'apt install gobuster' Install with.")
+            input("\nPress Enter to continue...")
             return
             
-        url = get_input("Hedef URL (http://example.com)")
+        url = get_input("Target URL (http://example.com)")
         wordlist = get_input("Wordlist", "/usr/share/wordlists/dirb/common.txt")
-        extensions = get_input("Uzantılar (boş bırakılabilir)", "php,html,txt")
+        extensions = get_input("Uzantılar (empty bırakılabilir)", "php,html,txt")
         threads = get_input("Thread sayısı", "50")
         
         if url:
@@ -91,22 +91,22 @@ class WebScanner:
             ext_opt = f"-x {extensions}" if extensions else ""
             cmd = f"gobuster dir -u {url} -w {wordlist} {ext_opt} -t {threads} -o {output_file}"
             
-            print_info(f"Çalıştırılan komut: {cmd}")
-            print_status("Tarama başlatılıyor...\n")
+            print_info(f"Running command: {cmd}")
+            print_status("Starting scan...\n")
             run_command_live(cmd)
-            print_success(f"\nSonuçlar: {output_file}")
-            input("\nDevam etmek için Enter'a basın...")
+            print_success(f"\nResults: {output_file}")
+            input("\nPress Enter to continue...")
 
     def ffuf_scan(self):
         """Fuzzing with ffuf"""
         clear_screen()
         print_banner("=== FFUF FUZZING ===\n")
         if not check_tool("ffuf"):
-            print_error("Ffuf yüklü değil! 'apt install ffuf' ile yükleyin.")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("Ffuf is not installed! 'apt install ffuf' Install with.")
+            input("\nPress Enter to continue...")
             return
             
-        url = get_input("Hedef URL (FUZZ yerine fuzz edilecek: http://example.com/FUZZ)")
+        url = get_input("Target URL (FUZZ yerine fuzz edilecek: http://example.com/FUZZ)")
         wordlist = get_input("Wordlist", "/usr/share/wordlists/dirb/common.txt")
         
         if url:
@@ -115,21 +115,21 @@ class WebScanner:
             
             cmd = f"ffuf -u {url} -w {wordlist} -o {output_file} -of json -c"
             
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
-            print_success(f"\nSonuçlar: {output_file}")
-            input("\nDevam etmek için Enter'a basın...")
+            print_success(f"\nResults: {output_file}")
+            input("\nPress Enter to continue...")
 
     def nikto_scan(self):
         """Web vulnerability scan with Nikto"""
         clear_screen()
         print_banner("=== NIKTO WEB SCANNER ===\n")
         if not check_tool("nikto"):
-            print_error("Nikto yüklü değil! 'apt install nikto' ile yükleyin.")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("Nikto is not installed! 'apt install nikto' Install with.")
+            input("\nPress Enter to continue...")
             return
             
-        url = get_input("Hedef URL")
+        url = get_input("Target URL")
         
         if url:
             timestamp = get_timestamp()
@@ -137,41 +137,41 @@ class WebScanner:
             
             cmd = f"nikto -h {url} -o {output_file}"
             
-            print_info(f"Çalıştırılan komut: {cmd}")
-            print_warning("Bu tarama uzun sürebilir...")
+            print_info(f"Running command: {cmd}")
+            print_warning("This scan uzun sürebilir...")
             run_command_live(cmd)
-            print_success(f"\nSonuçlar: {output_file}")
-            input("\nDevam etmek için Enter'a basın...")
+            print_success(f"\nResults: {output_file}")
+            input("\nPress Enter to continue...")
 
     def whatweb_scan(self):
         """Web fingerprinting with WhatWeb"""
         clear_screen()
         print_banner("=== WHATWEB FINGERPRINT ===\n")
         if not check_tool("whatweb"):
-            print_error("WhatWeb yüklü değil! 'apt install whatweb' ile yükleyin.")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("WhatWeb is not installed! 'apt install whatweb' Install with.")
+            input("\nPress Enter to continue...")
             return
             
-        url = get_input("Hedef URL")
+        url = get_input("Target URL")
         aggression = get_input("Aggression level (1-4)", "3")
         
         if url:
             cmd = f"whatweb -a {aggression} -v {url}"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def sqlmap_scan(self):
         """SQL Injection testing with SQLMap"""
         clear_screen()
         print_banner("=== SQLMAP - SQL INJECTION ===\n")
         if not check_tool("sqlmap"):
-            print_error("SQLMap yüklü değil! 'apt install sqlmap' ile yükleyin.")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("SQLMap is not installed! 'apt install sqlmap' Install with.")
+            input("\nPress Enter to continue...")
             return
         
         print(f"""
-{Colors.YELLOW}Tarama Türü Seçin:{Colors.END}
+{Colors.YELLOW}Scan Türü Seçin:{Colors.END}
 [1] URL ile tarama
 [2] Request file ile tarama
 [3] POST data ile tarama
@@ -179,7 +179,7 @@ class WebScanner:
         scan_type = get_input("Seçim", "1")
         
         if scan_type == "1":
-            url = get_input("Hedef URL (parametreli: http://site.com/page.php?id=1)")
+            url = get_input("Target URL (parametreli: http://site.com/page.php?id=1)")
             if url:
                 cmd = f"sqlmap -u \"{url}\" --batch --random-agent"
         elif scan_type == "2":
@@ -187,8 +187,8 @@ class WebScanner:
             if req_file:
                 cmd = f"sqlmap -r {req_file} --batch --random-agent"
         elif scan_type == "3":
-            url = get_input("Hedef URL")
-            data = get_input("POST data (örn: username=admin&password=test)")
+            url = get_input("Target URL")
+            data = get_input("POST data (e.g.: username=admin&password=test)")
             if url and data:
                 cmd = f"sqlmap -u \"{url}\" --data=\"{data}\" --batch --random-agent"
         else:
@@ -202,22 +202,22 @@ class WebScanner:
         if confirm("Database enumerate edilsin mi?"):
             cmd += " --dbs"
         
-        print_info(f"Çalıştırılan komut: {cmd}")
-        print_warning("Bu işlem uzun sürebilir...")
+        print_info(f"Running command: {cmd}")
+        print_warning("This may take a long time...")
         run_command_live(cmd)
-        input("\nDevam etmek için Enter'a basın...")
+        input("\nPress Enter to continue...")
 
     def xss_scan(self):
         """XSS scanning"""
         clear_screen()
         print_banner("=== XSS TARAMA ===\n")
         
-        url = get_input("Hedef URL (parametreli)")
+        url = get_input("Target URL (parametreli)")
         
         if url:
             if check_tool("xsser"):
                 cmd = f"xsser -u \"{url}\" --auto"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
             else:
                 print_warning("XSSer bulunamadı, basit XSS kontrolü yapılıyor...")
@@ -230,14 +230,14 @@ class WebScanner:
                 for p in payloads:
                     print(f"  - {p}")
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def subdomain_enum(self):
         """Subdomain enumeration"""
         clear_screen()
         print_banner("=== SUBDOMAIN ENUMERATION ===\n")
         
-        domain = get_input("Hedef domain (example.com)")
+        domain = get_input("Target domain (example.com)")
         
         if domain:
             timestamp = get_timestamp()
@@ -245,77 +245,77 @@ class WebScanner:
             
             if check_tool("subfinder"):
                 cmd = f"subfinder -d {domain} -o {output_file}"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
             elif check_tool("sublist3r"):
                 cmd = f"sublist3r -d {domain} -o {output_file}"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
             elif check_tool("amass"):
                 cmd = f"amass enum -passive -d {domain} -o {output_file}"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
             else:
                 print_error("Subdomain aracı bulunamadı!")
                 print_info("Şu araçlardan birini yükleyin: subfinder, sublist3r, amass")
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def ssl_analysis(self):
         """SSL/TLS analysis"""
         clear_screen()
         print_banner("=== SSL/TLS ANALİZİ ===\n")
         
-        target = get_input("Hedef domain/IP")
+        target = get_input("Target domain/IP")
         port = get_input("Port", "443")
         
         if target:
             if check_tool("sslscan"):
                 cmd = f"sslscan {target}:{port}"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
             elif check_tool("testssl.sh"):
                 cmd = f"testssl.sh {target}:{port}"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
             else:
                 cmd = f"openssl s_client -connect {target}:{port} -showcerts"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 stdout, stderr, _ = run_command(cmd)
                 print(stdout)
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def cms_detection(self):
         """CMS Detection"""
         clear_screen()
         print_banner("=== CMS DETECTION ===\n")
         
-        url = get_input("Hedef URL")
+        url = get_input("Target URL")
         
         if url:
             if check_tool("whatweb"):
                 cmd = f"whatweb -a 3 {url}"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
             else:
-                print_info("WhatWeb yüklü değil, curl ile kontrol ediliyor...")
+                print_info("WhatWeb is not installed, curl ile kontrol ediliyor...")
                 cmd = f"curl -s -I {url}"
                 run_command_live(cmd)
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def wpscan(self):
         """WordPress vulnerability scan"""
         clear_screen()
         print_banner("=== WORDPRESS SCAN ===\n")
         if not check_tool("wpscan"):
-            print_error("WPScan yüklü değil! 'apt install wpscan' ile yükleyin.")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("WPScan is not installed! 'apt install wpscan' Install with.")
+            input("\nPress Enter to continue...")
             return
             
         url = get_input("WordPress URL")
-        api_token = get_input("WPScan API Token (boş bırakılabilir)", "")
+        api_token = get_input("WPScan API Token (empty bırakılabilir)", "")
         
         if url:
             timestamp = get_timestamp()
@@ -324,21 +324,21 @@ class WebScanner:
             api_opt = f"--api-token {api_token}" if api_token else ""
             cmd = f"wpscan --url {url} {api_opt} -e vp,vt,u --output {output_file}"
             
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
-            print_success(f"\nSonuçlar: {output_file}")
-            input("\nDevam etmek için Enter'a basın...")
+            print_success(f"\nResults: {output_file}")
+            input("\nPress Enter to continue...")
 
     def http_headers(self):
         """HTTP header analysis"""
         clear_screen()
         print_banner("=== HTTP HEADER ANALİZİ ===\n")
         
-        url = get_input("Hedef URL")
+        url = get_input("Target URL")
         
         if url:
             cmd = f"curl -s -I -L {url}"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             print("\n")
             run_command_live(cmd)
             
@@ -358,7 +358,7 @@ class WebScanner:
                 else:
                     print_warning(f"{header}: Eksik!")
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def vhost_discovery(self):
         """Virtual host discovery"""
@@ -366,15 +366,15 @@ class WebScanner:
         print_banner("=== VIRTUAL HOST DISCOVERY ===\n")
         
         if not check_tool("gobuster"):
-            print_error("Gobuster yüklü değil!")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("Gobuster is not installed!")
+            input("\nPress Enter to continue...")
             return
             
-        url = get_input("Hedef URL")
+        url = get_input("Target URL")
         wordlist = get_input("Wordlist", "/usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt")
         
         if url:
             cmd = f"gobuster vhost -u {url} -w {wordlist}"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")

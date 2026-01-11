@@ -35,10 +35,10 @@ class OSINTModule:
 {Colors.CYAN}[10]{Colors.END} Website Technology Stack
 {Colors.CYAN}[11]{Colors.END} Wayback Machine Check
 {Colors.CYAN}[12]{Colors.END} Certificate Transparency Logs
-{Colors.CYAN}[0]{Colors.END} Ana Menüye Dön
+{Colors.CYAN}[0]{Colors.END} Back to Main Menu
             """)
             
-            choice = get_input("Seçiminiz")
+            choice = get_input("Your choice")
             
             if choice == "0":
                 break
@@ -67,8 +67,8 @@ class OSINTModule:
             elif choice == "12":
                 self.cert_transparency()
             else:
-                print_error("Geçersiz seçim!")
-                input("\nDevam etmek için Enter'a basın...")
+                print_error("Invalid selection!")
+                input("\nPress Enter to continue...")
 
     def whois_lookup(self):
         """WHOIS lookup"""
@@ -79,16 +79,16 @@ class OSINTModule:
         
         if target:
             cmd = f"whois {target}"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def dns_enum(self):
         """DNS enumeration"""
         clear_screen()
         print_banner("=== DNS ENUMERATION ===\n")
         
-        domain = get_input("Hedef domain")
+        domain = get_input("Target domain")
         
         if domain:
             print_info("DNS kayıtları sorgulanıyor...\n")
@@ -109,7 +109,7 @@ class OSINTModule:
                     cmd = f"dnsrecon -d {domain}"
                     run_command_live(cmd)
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def email_harvest(self):
         """Email harvesting with theHarvester"""
@@ -117,11 +117,11 @@ class OSINTModule:
         print_banner("=== EMAIL HARVESTING ===\n")
         
         if not check_tool("theHarvester"):
-            print_error("theHarvester yüklü değil! 'apt install theharvester' ile yükleyin.")
-            input("\nDevam etmek için Enter'a basın...")
+            print_error("theHarvester is not installed! 'apt install theharvester' Install with.")
+            input("\nPress Enter to continue...")
             return
             
-        domain = get_input("Hedef domain")
+        domain = get_input("Target domain")
         source = get_input("Kaynak (google,bing,linkedin,all)", "all")
         limit = get_input("Sonuç limiti", "500")
         
@@ -130,16 +130,16 @@ class OSINTModule:
             output_file = f"{self.output_dir}/harvest_{domain}_{timestamp}"
             
             cmd = f"theHarvester -d {domain} -b {source} -l {limit} -f {output_file}"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def google_dork(self):
         """Google dork generator"""
         clear_screen()
         print_banner("=== GOOGLE DORK GENERATOR ===\n")
         
-        domain = get_input("Hedef domain")
+        domain = get_input("Target domain")
         
         if domain:
             print_info("Kullanışlı Google Dorkları:\n")
@@ -173,7 +173,7 @@ class OSINTModule:
                 f.write('\n'.join(dorks))
             print_success(f"\nDorklar kaydedildi: {output_file}")
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def shodan_search(self):
         """Shodan search"""
@@ -184,17 +184,17 @@ class OSINTModule:
             query = get_input("Shodan sorgusu (ip, hostname, vs)")
             if query:
                 cmd = f"shodan search {query}"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
         else:
-            print_warning("Shodan CLI yüklü değil.")
+            print_warning("Shodan CLI is not installed.")
             print_info("Manuel arama için: https://www.shodan.io/")
             ip = get_input("IP adresi (host bilgisi için)")
             if ip:
                 cmd = f"shodan host {ip}"
                 print_info(f"Alternatif: curl ile shodan.io API kullanabilirsiniz")
         
-        input("\nDevam etmek için Enter'a basın...")
+        input("\nPress Enter to continue...")
 
     def username_check(self):
         """Social media username check"""
@@ -206,10 +206,10 @@ class OSINTModule:
         if username:
             if check_tool("sherlock"):
                 cmd = f"sherlock {username}"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
             else:
-                print_warning("Sherlock yüklü değil.")
+                print_warning("Sherlock is not installed.")
                 print_info("Manuel kontrol için platformlar:")
                 platforms = [
                     f"https://twitter.com/{username}",
@@ -221,7 +221,7 @@ class OSINTModule:
                 for p in platforms:
                     print(f"  - {p}")
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def ip_geolocation(self):
         """IP geolocation"""
@@ -232,19 +232,19 @@ class OSINTModule:
         
         if ip:
             cmd = f"curl -s http://ip-api.com/json/{ip}"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             stdout, _, _ = run_command(cmd)
             
             try:
                 import json
                 data = json.loads(stdout)
-                print(f"\n{Colors.GREEN}Sonuçlar:{Colors.END}")
+                print(f"\n{Colors.GREEN}Results:{Colors.END}")
                 for key, value in data.items():
                     print(f"  {Colors.CYAN}{key}:{Colors.END} {value}")
             except:
                 print(stdout)
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def reverse_dns(self):
         """Reverse DNS lookup"""
@@ -255,7 +255,7 @@ class OSINTModule:
         
         if ip:
             cmd = f"dig -x {ip} +short"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             stdout, _, _ = run_command(cmd)
             
             if stdout.strip():
@@ -267,7 +267,7 @@ class OSINTModule:
             print_info(f"\nAlternatif kontrol: {cmd2}")
             run_command_live(cmd2)
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def asn_lookup(self):
         """ASN lookup"""
@@ -278,43 +278,43 @@ class OSINTModule:
         
         if target:
             cmd = f"whois -h whois.radb.net {target}"
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def tech_stack(self):
         """Website technology detection"""
         clear_screen()
         print_banner("=== TECHNOLOGY STACK ===\n")
         
-        url = get_input("Hedef URL")
+        url = get_input("Target URL")
         
         if url:
             if check_tool("whatweb"):
                 cmd = f"whatweb -a 3 -v {url}"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
             else:
                 print_info("Curl ile header kontrolü yapılıyor...")
                 cmd = f"curl -s -I {url}"
                 run_command_live(cmd)
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def wayback_check(self):
         """Wayback Machine check"""
         clear_screen()
         print_banner("=== WAYBACK MACHINE ===\n")
         
-        url = get_input("Hedef URL/Domain")
+        url = get_input("Target URL/Domain")
         
         if url:
             if check_tool("waybackurls"):
                 timestamp = get_timestamp()
                 output_file = f"{self.output_dir}/wayback_{timestamp}.txt"
                 cmd = f"echo {url} | waybackurls | tee {output_file}"
-                print_info(f"Çalıştırılan komut: {cmd}")
+                print_info(f"Running command: {cmd}")
                 run_command_live(cmd)
             else:
                 api_url = f"http://web.archive.org/cdx/search/cdx?url={url}/*&output=text&fl=original&collapse=urlkey"
@@ -322,24 +322,24 @@ class OSINTModule:
                 cmd = f"curl -s \"{api_url}\" | head -50"
                 run_command_live(cmd)
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")
 
     def cert_transparency(self):
         """Certificate Transparency logs"""
         clear_screen()
         print_banner("=== CERTIFICATE TRANSPARENCY ===\n")
         
-        domain = get_input("Hedef domain")
+        domain = get_input("Target domain")
         
         if domain:
             print_info("crt.sh sorgulanıyor...")
             cmd = f"curl -s \"https://crt.sh/?q=%25.{domain}&output=json\" | jq -r '.[].name_value' | sort -u"
             
             if not check_tool("jq"):
-                print_warning("jq yüklü değil, ham çıktı gösterilecek")
+                print_warning("jq is not installed, ham çıktı gösterilecek")
                 cmd = f"curl -s \"https://crt.sh/?q=%25.{domain}&output=json\""
             
-            print_info(f"Çalıştırılan komut: {cmd}")
+            print_info(f"Running command: {cmd}")
             run_command_live(cmd)
             
-            input("\nDevam etmek için Enter'a basın...")
+            input("\nPress Enter to continue...")

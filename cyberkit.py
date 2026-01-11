@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 CyberKit - All-in-One Cybersecurity Toolkit for Kali Linux
 Main Entry Point
@@ -6,11 +7,23 @@ Main Entry Point
 
 import os
 import sys
+import io
+
+# Windows UTF-8 encoding fix
+if os.name == 'nt':
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+    except:
+        pass
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from cyberkit.utils.colors import *
 from cyberkit.utils.helpers import *
+from cyberkit.utils.logger import get_logger
+from cyberkit.utils.config_loader import get_config
+from cyberkit.utils.exceptions import handle_exceptions, ErrorHandler
 from cyberkit.modules.network_scanner import NetworkScanner
 from cyberkit.modules.web_scanner import WebScanner
 from cyberkit.modules.osint import OSINTModule

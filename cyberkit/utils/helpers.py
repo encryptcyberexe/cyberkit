@@ -1,5 +1,6 @@
 """
 Helper functions for CyberKit
+Provides utility functions for system operations, validation, and command execution
 """
 
 import subprocess
@@ -9,8 +10,21 @@ import shutil
 from datetime import datetime
 
 def check_root():
-    """Check if running as root"""
-    return os.geteuid() == 0
+    """
+    Check if running as root/administrator
+    
+    Returns:
+        bool: True if running with elevated privileges, False otherwise
+    """
+    try:
+        return os.geteuid() == 0
+    except AttributeError:
+        # Windows doesn't have geteuid
+        import ctypes
+        try:
+            return ctypes.windll.shell32.IsUserAnAdmin() != 0
+        except:
+            return False
 
 def check_tool(tool_name):
     """Check if a tool is installed"""

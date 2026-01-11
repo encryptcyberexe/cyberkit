@@ -28,14 +28,14 @@ class ReportGenerator:
             """)
             print(f"""
 {Colors.CYAN}[1]{Colors.END} Yeni Rapor Oluştur
-{Colors.CYAN}[2]{Colors.END} Tarama Sonuçlarını Birleştir
+{Colors.CYAN}[2]{Colors.END} Scan Resultsını Birleştir
 {Colors.CYAN}[3]{Colors.END} HTML Rapor Oluştur
 {Colors.CYAN}[4]{Colors.END} Markdown Rapor Oluştur
 {Colors.CYAN}[5]{Colors.END} Mevcut Raporları Listele
-{Colors.CYAN}[0]{Colors.END} Ana Menüye Dön
+{Colors.CYAN}[0]{Colors.END} Back to Main Menu
             """)
             
-            choice = get_input("Seçiminiz")
+            choice = get_input("Your choice")
             
             if choice == "0":
                 break
@@ -50,14 +50,14 @@ class ReportGenerator:
             elif choice == "5":
                 self.list_reports()
             else:
-                print_error("Geçersiz seçim!")
-                input("\nDevam etmek için Enter'a basın...")
+                print_error("Invalid selection!")
+                input("\nPress Enter to continue...")
 
     def create_report(self):
         clear_screen()
         print_banner("=== YENİ RAPOR OLUŞTUR ===\n")
         
-        project_name = get_input("Proje/Hedef adı")
+        project_name = get_input("Proje/Target adı")
         assessor = get_input("Değerlendirici adı")
         scope = get_input("Kapsam (IP/Domain listesi)")
         
@@ -111,7 +111,7 @@ Düşük Riskli Bulgular:
                               EK BELGELER
 ================================================================================
 
-Tarama Sonuçları: output/ dizininde
+Scan Resultsı: output/ dizininde
 Ekran Görüntüleri: [Yol ekleyin]
 
 ================================================================================
@@ -163,7 +163,7 @@ Ekran Görüntüleri: [Yol ekleyin]
                 
                 print_success(f"Birleştirildi: {merged_file}")
         
-        input("\nDevam etmek için Enter'a basın...")
+        input("\nPress Enter to continue...")
 
     def generate_html(self):
         clear_screen()
@@ -259,7 +259,7 @@ Ekran Görüntüleri: [Yol ekleyin]
             f.write(html_content)
         
         print_success(f"HTML rapor oluşturuldu: {html_file}")
-        input("\nDevam etmek için Enter'a basın...")
+        input("\nPress Enter to continue...")
 
     def generate_markdown(self):
         clear_screen()
@@ -286,7 +286,7 @@ Ekran Görüntüleri: [Yol ekleyin]
 
 ## 🎯 Kapsam
 
-| Hedef | Tip | Durum |
+| Target | Tip | Durum |
 |-------|-----|-------|
 | [IP/Domain] | [Web/Network] | [Tamamlandı] |
 
@@ -330,9 +330,9 @@ Ekran Görüntüleri: [Yol ekleyin]
 
 ## 📎 Ekler
 
-- Nmap Tarama Sonuçları: `output/network/`
-- Web Tarama Sonuçları: `output/web/`
-- OSINT Sonuçları: `output/osint/`
+- Nmap Scan Resultsı: `output/network/`
+- Web Scan Resultsı: `output/web/`
+- OSINT Resultsı: `output/osint/`
 
 ---
 
@@ -343,7 +343,7 @@ Ekran Görüntüleri: [Yol ekleyin]
             f.write(md_content)
         
         print_success(f"Markdown rapor oluşturuldu: {md_file}")
-        input("\nDevam etmek için Enter'a basın...")
+        input("\nPress Enter to continue...")
 
     def list_reports(self):
         clear_screen()
@@ -361,4 +361,4 @@ Ekran Görüntüleri: [Yol ekleyin]
         else:
             print_warning("Rapor dizini bulunamadı.")
         
-        input("\nDevam etmek için Enter'a basın...")
+        input("\nPress Enter to continue...")
