@@ -213,10 +213,16 @@ MIT License - See `LICENSE` file for details.
 
 ## 📞 Contact
 
-Open an issue for questions and suggestions.
+**🌐 Website:** [synticasoftware.com.tr](https://synticasoftware.com.tr)  
+**📧 Email:** info@synticasoftware.com.tr  
+**📱 Instagram:** [@synticasoftware](https://instagram.com/synticasoftware)  
+**💻 GitHub:** [github.com/encryptcyberexe/cyberkit](https://github.com/encryptcyberexe/cyberkit)  
+
+For questions and suggestions, open an issue on GitHub.
 
 ---
 
 <p align="center">
+  <b>Developed by Syntica Software</b><br>
   <b>🛡️ Hack Responsibly! 🛡️</b>
 </p>

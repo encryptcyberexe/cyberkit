@@ -641,12 +641,14 @@ jobs:
 
 ## 📞 SUPPORT & RESOURCES
 
+**Website:** https://synticasoftware.com.tr  
+**Email:** info@synticasoftware.com.tr  
+**Instagram:** @synticasoftware  
+**GitHub:** github.com/encryptcyberexe/cyberkit  
 **Documentation:** github.com/encryptcyberexe/cyberkit/wiki  
-**Discord:** discord.gg/cyberkit  
-**Twitter:** @cyberkit_tool  
-**Email:** support@cyberkit.dev
 
 ---
 
+**Developed by:** Syntica Software  
 **Last Updated:** January 11, 2026  
 **Next Review:** February 11, 2026

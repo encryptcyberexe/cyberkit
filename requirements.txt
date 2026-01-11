@@ -4,8 +4,11 @@
 # Core dependencies (recommended for enhanced features)
 # Install with: pip install -r requirements.txt
 
-# YAML configuration support
+# Core dependencies
 pyyaml>=6.0
+
+# Progress bars (highly recommended)
+tqdm>=4.65.0
 
 # Optional: Enhanced features
 # Uncomment the ones you want to use
