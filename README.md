@@ -81,6 +81,9 @@
 git clone https://github.com/encryptcyberexe/cyberkit.git
 cd cyberkit
 
+# Install Python dependencies
+pip install -r requirements.txt
+
 # Make executable
 chmod +x cyberkit.py
 
