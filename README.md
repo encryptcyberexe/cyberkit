@@ -216,7 +216,7 @@ MIT License - See `LICENSE` file for details.
 **🌐 Website:** [synticasoftware.com.tr](https://synticasoftware.com.tr)  
 **📧 Email:** info@synticasoftware.com.tr  
 **📱 Instagram:** [@synticasoftware](https://instagram.com/synticasoftware)  
-**💻 GitHub:** [github.com/encryptcyberexe/cyberkit](https://github.com/encryptcyberexe/cyberkit)  
+**💻 GitHub:** [github.com/encryptcyberexe/cyberkit](https://github.com/encryptcyberexe/cyberkit)
 
 For questions and suggestions, open an issue on GitHub.
 
